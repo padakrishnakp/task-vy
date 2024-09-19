@@ -1,0 +1,109 @@
+body {
+    background-color: #001f3f; /* Dark blue background */
+    color: #fff; /* White text color for the body */
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .task2-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #001f3f; /* Dark blue background */
+  }
+  
+  .task2-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff; /* White text color for the title */
+  }
+  
+  .input-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .task2-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    flex: 1; /* Take up remaining space */
+  }
+  
+  .task2-button {
+    padding: 10px 15px;
+    background-color: #007bff; /* Blue button */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .task2-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .task2-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .task2-card {
+    background-color: #007bff; /* Blue card background */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    color: #000; /* Black text color */
+    display: flex; /* Use flexbox to align content */
+    flex-direction: column; /* Stack items vertically */
+  }
+  
+  .task2-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+  }
+  
+  .task2-note {
+    font-size: 16px;
+    color: #000; /* Black text color */
+    flex-grow: 1; /* Allow note to grow */
+    max-height: 100px; /* Set max height for note */
+    overflow-y: auto; /* Enable vertical scrolling */
+    white-space: pre-wrap; /* Preserve whitespace and wrap text */
+    word-wrap: break-word; /* Break long words */
+    margin-bottom: 10px; /* Space between note and date */
+  }
+  
+  .task2-date {
+    font-size: 14px;
+    color: #333; /* Dark gray for date */
+    margin-top: 10px;
+  }
+  
+
+  .task2-delete-button {
+    margin-top: auto; /* Push to the bottom of the card */
+    padding: 5px;
+    background-color: transparent; /* Transparent background */
+    border: none;
+    color: #ff4d4d; /* Red color for the icon */
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .task2-delete-button:hover {
+    color: #e60000; /* Darker red on hover */
+  }
+  
+  .task2-delete-button i {
+    font-size: 16px; /* Adjust the icon size */
+  }
+  
