@@ -1,36 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Task2.css'; // Import the CSS file
 
 const Task2 = () => {
-  const [tasks, setTasks] = useState([
-    { notes: "Hey, I just wanted to let you know that the meeting has been rescheduled to 3 PM tomorrow.", dated: "12-10-2023" },
-    { notes: "Don’t forget to review the document I sent you earlier today", dated: "12-9-2024" },
-    { notes: "Can you help me with the new design for the homepage? I need some feedback.", dated: "10-9-2024" }
-  ]);
-  
-  const [newNote, setNewNote] = useState("");
-  const [tempNote, setTempNote] = useState(""); // Temporary note for preview
+  const [tasks, setTasks] = useState([]);
+  const inputRef = useRef(null);
+  const [tempNote, setTempNote] = useState("");
 
-  const handleAddNote = () => {
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/notes');
+        const data = await response.json();
+        
+        // Access the notes array from the response
+        if (Array.isArray(data.notes)) {
+          setTasks(data.notes); // Set tasks to the array of notes
+        } else {
+          console.error('Expected an array of notes, but got:', data.notes);
+        }
+      } catch (error) {
+        console.error('Error fetching notes:', error);
+      }
+    };
+  
+    fetchNotes();
+  }, []);
+  
+
+  const handleAddNote = async () => {
+    const newNote = inputRef.current.value;
+
     if (newNote.trim()) {
-      const newTask = {
-        notes: newNote,
-        dated: new Date().toLocaleDateString()
-      };
-      setTasks([...tasks, newTask]);
-      setNewNote(""); // Clear the input field after adding
-      setTempNote(""); // Clear the temporary note
+      const newTask = { message: newNote };
+
+      try {
+        const response = await fetch('http://localhost:3000/api/notes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newTask),
+        });
+        const data = await response.json();
+
+        // Update state with the new note
+        if (data && data.message) {
+          setTasks([...tasks, data]);
+          inputRef.current.value = '';
+          setTempNote('');
+        } else {
+          console.error('Expected a note object, but got:', data);
+        }
+      } catch (error) {
+        console.error('Error adding note:', error);
+      }
     }
   };
 
-  const handleInputChange = (e) => {
-    setNewNote(e.target.value);
-    setTempNote(e.target.value); // Update the temporary note
+  const handleInputChange = () => {
+    const newNote = inputRef.current.value;
+    setTempNote(newNote);
   };
 
-  const handleDeleteNote = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
+  const handleDeleteNote = async (index, id) => {
+    try {
+      await fetch(`http://localhost:3000/api/notes/${id}`, { method: 'DELETE' });
+      const updatedTasks = tasks.filter((_, i) => i !== index);
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Error deleting note:', error);
+    }
   };
 
   return (
@@ -40,25 +79,23 @@ const Task2 = () => {
         <input
           type="text"
           className="task2-input"
-          value={newNote}
+          ref={inputRef}
           onChange={handleInputChange}
           placeholder="Type your note here..."
         />
         <button className="task2-button" onClick={handleAddNote}>Add</button>
       </div>
       <div className="task2-grid">
-        {/* Display the temporary note as a new card */}
         {tempNote && (
           <div className="task2-card">
             <div className="task2-note">{tempNote}</div>
             <div className="task2-date">{new Date().toLocaleDateString()}</div>
           </div>
         )}
-        {tasks.map((task, index) => (
-          <div className="task2-card" key={index}>
-            <div className="task2-note">{task.notes}</div>
-            <div className="task2-date">{task.dated}</div>
-            <button className="task2-delete-button" onClick={() => handleDeleteNote(index)}>
+        {Array.isArray(tasks) && tasks.map((task, index) => (
+          <div className="task2-card" key={task._id}>
+            <div className="task2-note">{task.message}</div>
+            <div className="task2-date">{new Date(task.create_at).toLocaleDateString()}</div>            <button className="task2-delete-button" onClick={() => handleDeleteNote(index, task._id)}>
               <i className="fas fa-trash-alt"></i>
             </button>
           </div>

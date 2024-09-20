@@ -1,72 +1,60 @@
 .task-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-  }
-  
-  .task-title {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .task-table {
-    width: 100%;
-    border-collapse: collapse; /* This ensures borders are collapsed */
-    margin-bottom: 20px;
-  }
-  
-  .task-table th,
-  .task-table td {
-    padding: 12px; /* Equal padding for all table cells */
-    text-align: left;
-    border: 1px solid #ddd; /* Add equal borders for columns */
-    vertical-align: middle; /* Align content vertically */
-  }
-  
-  .task-table th {
-    background-color: #f4f4f4;
-    color: #555;
-  }
-  
-  .task-table tr:nth-child(even) {
-    background-color: #f9f9f9; /* Light gray for even rows */
-  }
-  
-  .task-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .task-button {
-    margin: 0 5px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .task-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .task-button:focus {
-    outline: none;
-  }
-  
-  /* Ensure equal margin and padding consistency for column borders */
-  .task-table th,
-  .task-table td {
-    padding: 12px 15px; /* Add some horizontal padding to align columns */
-    border: 1px solid #ddd; /* Equal border thickness */
-  }
-  
-  .task-table th {
-    border-bottom: 2px solid #ddd; /* Slightly thicker border for headers */
-  }
-  
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.task-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse; 
+  margin-bottom: 20px;
+}
+
+.task-table th,
+.task-table td {
+  padding: 12px 15px; 
+  border: 1px solid #ddd; 
+  color: black; /* Set text color to black */
+}
+
+.task-table th {
+  background-color: #f4f4f4;
+  color: black; /* Set header text color to black */
+  border-bottom: 2px solid #ddd; 
+}
+
+.task-table tr:nth-child(even) {
+  background-color: #f9f9f9; 
+}
+
+.task-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.task-button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.task-button:hover {
+  background-color: #0056b3;
+}
+
+.task-button:focus {
+  outline: none;
+}

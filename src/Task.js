@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './Task.css'; // Import the CSS file
+import './Task.css'; 
 
 const Task = () => {
-  // Retrieve data from localStorage if it exists, otherwise fall back to the default data
   const getInitialTasks = () => {
     const savedTasks = localStorage.getItem('tasks');
     return savedTasks ? JSON.parse(savedTasks) : [
@@ -29,9 +28,8 @@ const Task = () => {
 
   const [editableIndex, setEditableIndex] = useState(null);
   const [editedText, setEditedText] = useState(null);
-  const [tasks, setTasks] = useState(getInitialTasks); // Load initial tasks from localStorage or default
+  const [tasks, setTasks] = useState(getInitialTasks); 
 
-  // Save updated tasks to localStorage whenever tasks state changes
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
@@ -46,21 +44,19 @@ const Task = () => {
   };
 
   const handleInputBlur = () => {
-    setEditableIndex(null); // Exit editable mode when clicking outside the input
+    setEditableIndex(null); 
   };
 
   const handleKeyPress = (event, index) => {
     if (event.key === "Enter") {
-      // Update the task list with the new text
       const updatedTasks = [...tasks];
       updatedTasks[index] = editedText;
       setTasks(updatedTasks);
 
-      setEditableIndex(null); // Close editing mode when Enter is pressed
+      setEditableIndex(null); 
     }
   };
 
-  // Handle the submit button click to log tasks
   const handleSubmit = () => {
     console.log("Current Tasks: ", tasks);
   };
@@ -87,7 +83,7 @@ const Task = () => {
                       value={editedText}
                       onChange={handleInputChange}
                       onBlur={handleInputBlur}
-                      onKeyPress={(e) => handleKeyPress(e, index)} // Detect Enter key press
+                      onKeyPress={(e) => handleKeyPress(e, index)} 
                       autoFocus
                     />
                   ) : (
@@ -101,7 +97,6 @@ const Task = () => {
           }
         </tbody>
       </table>
-      {/* Add Submit button */}
       <button className="task-submit-button" onClick={handleSubmit}>Submit</button>
     </div>
   );
