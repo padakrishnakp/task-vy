@@ -97,7 +97,7 @@ const Task = () => {
           }
         </tbody>
       </table>
-      <button className="task-submit-button" onClick={handleSubmit}>Submit</button>
+      <button style={{cursor:'pointer'}} className="task-submit-button" onClick={handleSubmit}>Submit</button>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Task2.css'; // Import the CSS file
+import { fetchNotes, addNote, deleteNote } from './apiService';
+import './Task2.css';
 
 const Task2 = () => {
   const [tasks, setTasks] = useState([]);
@@ -7,26 +8,18 @@ const Task2 = () => {
   const [tempNote, setTempNote] = useState("");
 
   useEffect(() => {
-    const fetchNotes = async () => {
+    const getNotes = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/notes');
-        const data = await response.json();
-        
-        // Access the notes array from the response
-        if (Array.isArray(data.notes)) {
-          setTasks(data.notes); // Set tasks to the array of notes
-        } else {
-          console.error('Expected an array of notes, but got:', data.notes);
-        }
+        const notes = await fetchNotes();
+        setTasks(notes);
       } catch (error) {
         console.error('Error fetching notes:', error);
       }
     };
   
-    fetchNotes();
+    getNotes();
   }, []);
   
-
   const handleAddNote = async () => {
     const newNote = inputRef.current.value;
 
@@ -34,23 +27,10 @@ const Task2 = () => {
       const newTask = { message: newNote };
 
       try {
-        const response = await fetch('http://localhost:3000/api/notes', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newTask),
-        });
-        const data = await response.json();
-
-        // Update state with the new note
-        if (data && data.message) {
-          setTasks([...tasks, data]);
-          inputRef.current.value = '';
-          setTempNote('');
-        } else {
-          console.error('Expected a note object, but got:', data);
-        }
+        const data = await addNote(newTask);
+        setTasks([...tasks, data]);
+        inputRef.current.value = '';
+        setTempNote('');
       } catch (error) {
         console.error('Error adding note:', error);
       }
@@ -64,7 +44,7 @@ const Task2 = () => {
 
   const handleDeleteNote = async (index, id) => {
     try {
-      await fetch(`http://localhost:3000/api/notes/${id}`, { method: 'DELETE' });
+      await deleteNote(id);
       const updatedTasks = tasks.filter((_, i) => i !== index);
       setTasks(updatedTasks);
     } catch (error) {
@@ -95,7 +75,8 @@ const Task2 = () => {
         {Array.isArray(tasks) && tasks.map((task, index) => (
           <div className="task2-card" key={task._id}>
             <div className="task2-note">{task.message}</div>
-            <div className="task2-date">{new Date(task.create_at).toLocaleDateString()}</div>            <button className="task2-delete-button" onClick={() => handleDeleteNote(index, task._id)}>
+            <div className="task2-date">{new Date(task.create_at).toLocaleDateString()}</div>
+            <button className="task2-delete-button" onClick={() => handleDeleteNote(index, task._id)}>
               <i className="fas fa-trash-alt"></i>
             </button>
           </div>
