@@ -4,6 +4,7 @@ import { useTransition, animated } from 'react-spring';
 import './App.css';
 import Task from './Task';
 import Task2 from './Task2';
+import Task3 from './Task3';
 
 function App() {
   const location = useLocation();
@@ -23,12 +24,16 @@ function App() {
         <Link to="/task2">
           <button>Task Notes</button>
         </Link>
+        <Link to="/task3">
+          <button>Task Three</button>
+        </Link>
       </nav>
       {transitions((style, item) => (
         <animated.div style={style}>
           <Routes location={item}>
             <Route path="/task" element={<Task />} />
             <Route path="/task2" element={<Task2 />} />
+            <Route path="/task3" element={<Task3 />} />
           </Routes>
         </animated.div>
       ))}

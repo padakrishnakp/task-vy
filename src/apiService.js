@@ -1,5 +1,5 @@
 
-const API_URL = 'http://localhost:3000/api/notes';
+const API_URL = 'http://localhost:3002/api/notes';
 
 export const fetchNotes = async () => {
   const response = await fetch(API_URL);
