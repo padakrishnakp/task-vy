@@ -12,7 +12,7 @@ const Task3 = () => {
       setErrorMessage('Phone number must be exactly 10 digits.');
       return;
     }
-    setErrorMessage(''); // Reset error message if validation passes
+    setErrorMessage(''); 
 
     try {
       const response = await fetch('https://chimpu.online/api/post.php', {
@@ -42,7 +42,6 @@ const Task3 = () => {
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-    // Only allow numbers and restrict input to 10 digits
     if (/^\d{0,10}$/.test(value)) {
       setPhoneNumber(value);
     }
@@ -62,7 +61,7 @@ const Task3 = () => {
       display: 'block',
       fontSize: '16px',
       marginBottom: '8px',
-      color: '#00008B', // Black blue color for text
+      color: '#00008B', 
     },
     inputField: {
       width: '100%',
@@ -96,10 +95,10 @@ const Task3 = () => {
       padding: '15px',
       borderRadius: '8px',
       fontFamily: 'monospace',
-      color: '#00008B', // Black blue color for data text
+      color: '#00008B', 
     },
     textBlackBlue: {
-      color: '#00008B', // Black blue color for all text
+      color: '#00008B', 
     },
   };
 
