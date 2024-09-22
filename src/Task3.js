@@ -47,7 +47,6 @@ const Task3 = () => {
     }
   };
 
-  // Inline CSS styles
   const styles = {
     container: {
       maxWidth: '600px',
